@@ -32,43 +32,41 @@ def init_statistics(domains):
     summary(objects)
 
 
-
-
 def encoder(domains_list):
     apn_list = []
     for dom in domains_list:
         for a in dom.apn:
             if a not in apn_list:
                 apn_list.append(a)
-    save_arrays.save(apn_list, "apn.obj")
+    save_arrays.save(apn_list, "./files/apn.obj")
     cit_list = []
     for dom in domains_list:
         for c in dom.cit:
             if c not in cit_list:
                 cit_list.append(c)
-    save_arrays.save(cit_list, "cit.obj")
+    save_arrays.save(cit_list, "./files/cit.obj")
     loc_list = []
     for dom in domains_list:
         for l in dom.loc:
             if l not in loc_list:
                 loc_list.append(l)
-    save_arrays.save(loc_list, "loc.obj")
+    save_arrays.save(loc_list, "./files/loc.obj")
     obj_list = []
     for dom in domains_list:
         for o in dom.obj:
             if o not in obj_list:
                 obj_list.append(o)
-    save_arrays.save(obj_list, "obj.obj")
+    save_arrays.save(obj_list, "./files/obj.obj")
     tru_list = []
     for dom in domains_list:
         for t in dom.tru:
             if t not in tru_list:
                 tru_list.append(t)
-    save_arrays.save(tru_list, "tru.obj")
+    save_arrays.save(tru_list, "./files/tru.obj")
 
 
 def get_plans(folder):
-    plan_list = [plan.Plan(folder + "/" + file) for file in os.listdir(folder) if file.endswith(".soln")]
+    plan_list = [plan.Plan(folder + "/" + file) for file in os.listdir(folder) if file.endswith(".soln") or file.endswith(".SOL")]
     return plan_list
 
 
@@ -78,17 +76,13 @@ def logistics_domains(folder):
 
 
 if __name__ == '__main__':
-    # file = sys.argv[1]
-    # file = "plan_pfile-51-0-1--I0-G0-n0.pddl_1.SOL" #for debugging, use command line arguments
-    # p = plan.Plan(file)
-    #folder = "C:\\Users\\maste\\Desktop\\logistics\\cb_problems"
     folder = "SOL_files"
     plans = get_plans(folder)
     domains = logistics_domains(folder)
     init_statistics(domains)
-    save_arrays.save(domains, "domains.obj")
-    save_arrays.save(plans, "piani.obj")
-    enc = encoder(domains)
+    save_arrays.save(domains, "./files/domains.obj")
+    save_arrays.save(plans, "./files/piani.obj")
+    encoder(domains)
 
 
 

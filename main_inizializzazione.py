@@ -83,13 +83,12 @@ if __name__ == '__main__':
     # p = plan.Plan(file)
     #folder = "C:\\Users\\maste\\Desktop\\logistics\\cb_problems"
     folder = "SOL_files"
-    print("test")
     plans = get_plans(folder)
     domains = logistics_domains(folder)
     init_statistics(domains)
     save_arrays.save(domains, "domains.obj")
+    save_arrays.save(plans, "piani.obj")
     enc = encoder(domains)
-    print("test")
 
 
 

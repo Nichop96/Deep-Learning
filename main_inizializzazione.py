@@ -3,7 +3,7 @@ import os
 import save_arrays
 import numpy as np
 import logistic_domain
-
+import matplotlib.pylab as plt
 
 def summary(array):
     print("min: "+str(min(array))+"\nmax: "+str(max(array))+"\nmean: "+str(sum(array)/len(array))+"\nmedian: "+str(np.median(array))+"\n1th quartile: "+str(np.percentile(array,25))+"\n3rd quartile: "+str(np.percentile(array,75))+"\n")
@@ -71,14 +71,42 @@ def logistics_domains(folder):
     return domains_list
 
 
+def num_actions_plans(plans):
+    num_actions = [len(plan.actions) for plan in plans]
+    summary(num_actions)
+
+
+def plot_num_actions_plans(plans):
+    num_actions = [len(plan.actions) for plan in plans]
+    dictionary = {}
+    for i in range(len(num_actions)):
+        if not num_actions[i] in dictionary:
+            dictionary[num_actions[i]] = 1
+        else:
+            dictionary[num_actions[i]] += 1
+    dictionary = {k: v for k, v in sorted(dictionary.items(), key=lambda item: item[0], reverse=False)}
+    vals = np.fromiter(dictionary.values(), dtype=float)
+    file = open("num_azioni_nei_piani.txt", "w")
+    for k, w in dictionary.items():
+        file.write("Numero azioni nel piano: " + str(k) + "   Frequenza: " + str(w) + "\n")
+    file.close()
+    plt.plot(vals)
+    plt.xlabel('numero_azioni_nei_piani')
+    plt.ylabel('frequenza_numero_azioni')
+    plt.savefig("plot_distribuzione_numero_azioni_nei_piani.png")
+    plt.show()
+
+
+
 if __name__ == '__main__':
-    folder = "XmlPlans"
+    folder = "files"
     plans = get_plans(folder)
-    domains = logistics_domains(folder)
-    init_statistics(domains)
-    save_arrays.save(domains, "./files/domains.obj")
-    save_arrays.save(plans, "./files/piani.obj")
-    encoder(domains)
+    plot_num_actions_plans(plans)
+    #domains = logistics_domains(folder)
+    # init_statistics(domains)
+    # save_arrays.save(domains, "./files/domains.obj")
+    # save_arrays.save(plans, "./files/piani.obj")
+    # encoder(domains)
 
 
 

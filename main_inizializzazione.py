@@ -72,7 +72,7 @@ def logistics_domains(folder):
 
 
 if __name__ == '__main__':
-    folder = "SOL_files"
+    folder = "XmlPlans"
     plans = get_plans(folder)
     domains = logistics_domains(folder)
     init_statistics(domains)

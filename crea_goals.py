@@ -7,7 +7,7 @@ import save_arrays
 
 
 if __name__ == '__main__':
-    folder = "SOL_files"
+    folder = "XmlPlans"
     plans = utils.get_plans(folder)
     goals = []
     for p in plans:

@@ -3,7 +3,7 @@ import utils
 import save_arrays
 import pickle
 import neuralNet
-
+import sys
 
 def get_max_lenght(plans, perc):
     max_dim = 0
@@ -46,6 +46,7 @@ def getDataset(plans, max_dim, dizionario, dizionario_goal, perc):
 
 
 if __name__ == '__main__':
+    sys.stdout = open('./files/modelLog.txt', 'wt')
     folder = "XmlPlans"
     file = open("dizionario_casuale", "rb")
     dizionario = pickle.load(file)
@@ -60,7 +61,8 @@ if __name__ == '__main__':
     Y_train = Y[:train_dim]
     Y_test = Y[train_dim:]
     model = neuralNet.get_net2(len(Y[0]))
-    model.fit(X_train, Y_train, batch_size=1, epochs=60, verbose=2)
+    model.fit(X_train, Y_train, batch_size=1, epochs=10, verbose=2, validation_split=0.1)
+    model.save("./files/model")
 
 
 

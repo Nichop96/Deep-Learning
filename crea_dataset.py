@@ -60,7 +60,7 @@ if __name__ == '__main__':
     Y_train = Y[:train_dim]
     Y_test = Y[train_dim:]
     model = neuralNet.get_net2(len(Y[0]))
-    model.fit(X_train[:], Y_train[:], batch_size=1, epochs=60, verbose=2)
+    model.fit(X_train, Y_train, batch_size=1, epochs=60, verbose=2)
 
 
 

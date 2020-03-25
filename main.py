@@ -27,7 +27,7 @@ def create_plans(nrow, ncol, ngoal, nplans):
 if __name__ == '__main__':
     X_train, Y_train = create_plans(20, 100, 5, 10)
 
-    model = neuralNet.get_net2(20, 100, 5)
+    model = neuralNet.get_net2(5)
     model.fit(X_train, Y_train, batch_size=10, epochs=60, verbose=2)
     print("ciao")
 

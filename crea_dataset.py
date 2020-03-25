@@ -2,6 +2,7 @@ import numpy as np
 import utils
 import save_arrays
 import pickle
+import neuralNet
 
 
 def get_max_lenght(plans, perc):
@@ -53,7 +54,14 @@ if __name__ == '__main__':
     plans = utils.get_plans(folder)
     max_dim = int(get_max_lenght(plans, 0.5))
     X, Y = getDataset(plans, max_dim, dizionario, dizionario_goal, 0.5)
-    print("fine")
+    train_dim = int(0.8*len(X))
+    X_train = X[:train_dim]
+    X_test = X[train_dim:]
+    Y_train = Y[:train_dim]
+    Y_test = Y[train_dim:]
+    model = neuralNet.get_net2(len(Y[0]))
+    model.fit(X_train[:], Y_train[:], batch_size=1, epochs=60, verbose=2)
+
 
 
 

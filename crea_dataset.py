@@ -5,6 +5,7 @@ import pickle
 import neuralNet
 import sys
 
+
 def get_max_lenght(plans, perc):
     max_dim = 0
     for p in plans:

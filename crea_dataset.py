@@ -4,6 +4,7 @@ import save_arrays
 import pickle
 import neuralNet
 import sys
+import random
 
 
 def get_max_lenght(plans, perc):
@@ -17,7 +18,15 @@ def get_max_lenght(plans, perc):
 
 def get_actions(actions, perc, dizionario):
     size = int(np.ceil(len(actions)*perc))
-    return [dizionario[a.name] for a in actions[:size]]
+    indexes = np.zeros(size, dtype=int)
+    i = 0
+    while i < size:
+        ind = random.randint(0, len(actions))
+        if ind not in indexes:
+            indexes[i] = ind
+            i += 1
+    indexes = np.sort(indexes)
+    return [dizionario[a.name] for a in np.take(actions,indexes)]
 
 
 def fill_action_sequence(X, max_dim, actions, i):
@@ -47,7 +56,7 @@ def getDataset(plans, max_dim, dizionario, dizionario_goal, perc):
 
 
 if __name__ == '__main__':
-    sys.stdout = open('./files/modelLog.txt', 'wt')
+    # sys.stdout = open('./files/modelLog.txt', 'wt')
     folder = "XmlPlans"
     file = open("dizionario_casuale", "rb")
     dizionario = pickle.load(file)
@@ -56,6 +65,7 @@ if __name__ == '__main__':
     plans = utils.get_plans(folder)
     max_dim = int(get_max_lenght(plans, 0.5))
     X, Y = getDataset(plans, max_dim, dizionario, dizionario_goal, 0.5)
+    print("ciao")
     train_dim = int(0.8*len(X))
     X_train = X[:train_dim]
     X_test = X[train_dim:]

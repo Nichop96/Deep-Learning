@@ -9,3 +9,4 @@ class LogisticDomain:
         self.tru = lines[7].strip().split(" ")
         self.loc = lines[8].strip().split(" ")
         self.obj = lines[9].strip().split(" ")
+        self.name_file = logistic_domain_description

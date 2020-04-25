@@ -62,7 +62,7 @@ def encoder(domains_list):
 
 
 def get_plans(folder):
-    plan_list = [plan.Plan(folder + "/" + file) for file in os.listdir(folder) if file.endswith(".soln") or file.endswith(".SOL")]
+    plan_list = [plan.Plan(folder + "/" + file) for file in os.listdir(folder) if file.find("xml") >= 0 and (file.endswith(".soln") or file.endswith(".SOL"))]
     return plan_list
 
 
@@ -99,14 +99,14 @@ def plot_num_actions_plans(plans):
 
 
 if __name__ == '__main__':
-    folder = "files"
+    folder = "XmlPlans"
     plans = get_plans(folder)
     plot_num_actions_plans(plans)
-    #domains = logistics_domains(folder)
-    # init_statistics(domains)
-    # save_arrays.save(domains, "./files/domains.obj")
-    # save_arrays.save(plans, "./files/piani.obj")
-    # encoder(domains)
+    domains = logistics_domains(folder)
+    init_statistics(domains)
+    save_arrays.save(domains, "./files/domains.obj")
+    save_arrays.save(plans, "./files/piani.obj")
+    encoder(domains)
 
 
 
